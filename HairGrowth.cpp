@@ -241,23 +241,29 @@ void LPrintData(vector<EntryType>& lengthData, int entries) {
 }
 
 double GrowthRate(vector<EntryType> lengthData, int entries) {
-	days noncut;
-	days dateDiff;
-	double difLength=0;
-	double growth=0;	
-	double growthAvg=0.0;
-	
-	for (int i=1; i<=entries; ++i) {
-		dateDiff=lengthData[i].Edate-lengthData[i-1].Edate;
-		if (!lengthData[i].cut) {		
-			difLength=lengthData[i].length-lengthData[i-1].length;
-			growth=growth+difLength;
-			noncut=noncut+dateDiff;
+	if (entries>1) {
+		days noncut;
+		days dateDiff;
+		double difLength=0;
+		double growth=0;	
+		double growthAvg=0.0;
+		
+		for (int i=1; i<=entries; ++i) {
+			dateDiff=lengthData[i].Edate-lengthData[i-1].Edate;
+			if (!lengthData[i].cut) {		
+				difLength=lengthData[i].length-lengthData[i-1].length;
+				growth=growth+difLength;
+				noncut=noncut+dateDiff;
+			}
 		}
+		growthAvg=growth/noncut.days();
+		//cout<<"Growth average per month: "<<setprecision(5)<<growthAvg*30<<endl;
+		return growthAvg;
 	}
-	growthAvg=growth/noncut.days();
-	//cout<<"Growth average per month: "<<setprecision(5)<<growthAvg*30<<endl;
-	return growthAvg;
+	else {
+		cout<<"Not enough data entries."<<endl;
+		return 0;
+	}
 }
 
 date ProjDate(EntryType lengthData, double growthAvg, double goalLength) {
