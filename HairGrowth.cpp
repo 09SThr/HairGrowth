@@ -32,6 +32,7 @@ void MPrintData(vector<MarkerType>& markerData, int entries);
 void GoldenRatio(EntryType lengthData, double growthAvg);
 bool compareLengths(MarkerType &a, MarkerType &b) {return a.length < b.length;}
 bool compareDates(EntryType &a, EntryType &b) {return a.Edate < b.Edate;}
+void LGrowingYears(EntryType lengthData, double growthAvg);
 
 string mSys="\" ";
 
@@ -66,9 +67,10 @@ int main() {
 			<<"5 - Calculate Golden Ratio lengths"<<endl
 			<<"6 - Display projected growth for markers"<<endl
 			<<"7 - Input a marker entry"<<endl
-			<<"8 - Display all markers"<<endl;
-			if (mSys=="\" ") {cout<<"9 - Use Metric system"<<endl;}
-			else {cout<<"9 - Use Imperial system"<<endl;}
+			<<"8 - Display all markers"<<endl
+			<<"9 - \"How long have you been growing your hair?\""<<endl;
+			if (mSys=="\" ") {cout<<"10 - Use Metric system"<<endl;}
+			else {cout<<"10 - Use Imperial system"<<endl;}
 			cout<<"0 - Exit program"<<endl;
 		cin>>selection;
 		system("cls");
@@ -118,6 +120,8 @@ int main() {
 			MPrintData(markerData, Mentries);
 			break;
 		case 9:
+			LGrowingYears(lengthData[Lentries], growthAvg);
+		case 10:
 			if (mSys=="\" ") {mSys="cm";}
 			else {mSys="\" ";}
 			break;
@@ -398,4 +402,11 @@ void MPrintData(vector<MarkerType>& markerData, int entries) {
 		cout<<fixed<<setprecision(2)<<markerData[i].length<<"	"<<markerData[i].marker<<endl;
 	}
 	cout<<"---------------------------"<<endl<<endl;
+}
+
+void LGrowingYears(EntryType lengthData, double growthAvg) {
+	double years;
+	years=(lengthData.length/growthAvg)/365;
+	cout<<"Based on your current growth rate, your hair is "<<setprecision(4)<<years<<" years old."<<endl<<"Now you have an answer to that inane question!"<<endl;
+	cout<<"-----------------------------------------------"<<endl<<endl;
 }
