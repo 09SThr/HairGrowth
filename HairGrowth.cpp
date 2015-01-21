@@ -138,7 +138,7 @@ return 0;}
 
 int NumEntry(string file, int entries) {
 	ifstream fin;
-	fin.open(file.c_str() );
+	fin.open(file.c_str());
 	string line;
 	
 	while (!fin){
